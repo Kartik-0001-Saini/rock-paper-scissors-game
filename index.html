@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- =============================================
+         MAIN WRAPPER
+         Centers everything on the page
+    ============================================= -->
+    <div class="wrapper">
+
+      <!-- Page header with title and tagline -->
+      <header class="header">
+        <h1 class="title">Rock<span class="accent">.</span> Paper<span class="accent">.</span> Scissors<span class="accent">.</span></h1>
+        <p class="subtitle">Pick your move. Beat the machine.</p>
+      </header>
+
+      <main>
+
+        <!-- =============================================
+             SCOREBOARD SECTION
+             Tracks Player vs Computer score
+        ============================================= -->
+        <section class="scoreboard" aria-label="Scoreboard">
+          <div class="score-block">
+            <span class="score-label">You</span>
+            <!-- Score updates via JavaScript -->
+            <span class="score-value" id="player-score">0</span>
+          </div>
+
+          <div class="score-divider" aria-hidden="true">VS</div>
+
+          <div class="score-block">
+            <span class="score-label">CPU</span>
+            <span class="score-value" id="cpu-score">0</span>
+          </div>
+        </section>
+
+        <!-- =============================================
+             CHOICE DISPLAY SECTION
+             Shows what both players picked
+        ============================================= -->
+        <section class="choices-display" aria-label="Choices made">
+          <div class="choice-card" id="player-choice-card">
+            <span class="choice-emoji" id="player-emoji">❓</span>
+            <span class="choice-label">Your pick</span>
+          </div>
+
+          <div class="vs-badge" aria-hidden="true">⚡</div>
+
+          <div class="choice-card" id="cpu-choice-card">
+            <span class="choice-emoji" id="cpu-emoji">❓</span>
+            <span class="choice-label">CPU pick</span>
+          </div>
+        </section>
+
+        <!-- =============================================
+             RESULT BANNER
+             Announces the round outcome
+        ============================================= -->
+        <div class="result-banner" id="result-banner" role="status" aria-live="polite">
+          <span id="result-text">Choose your move to start!</span>
+        </div>
+
+        <!-- =============================================
+             ACTION BUTTONS SECTION
+             The three move buttons the player clicks
+        ============================================= -->
+        <section class="actions" aria-label="Choose your move">
+          <!-- Each button has a data-move attribute read by JavaScript -->
+          <button class="move-btn" data-move="Rock" aria-label="Choose Rock">
+            <span class="move-emoji">🪨</span>
+            <span class="move-name">Rock</span>
+          </button>
+
+          <button class="move-btn" data-move="Paper" aria-label="Choose Paper">
+            <span class="move-emoji">📄</span>
+            <span class="move-name">Paper</span>
+          </button>
+
+          <button class="move-btn" data-move="Scissors" aria-label="Choose Scissors">
+            <span class="move-emoji">✂️</span>
+            <span class="move-name">Scissors</span>
+          </button>
+        </section>
+
+        <!-- Reset button to clear scores -->
+        <button class="reset-btn" id="reset-btn" aria-label="Reset scores">
+          ↺ Reset Score
+        </button>
+
+      </main>
+
+      <!-- Page footer -->
+      <footer class="footer">
+        <p>Best of luck. The CPU never sleeps. 🤖</p>
+      </footer>
+
+    </div><!-- end .wrapper -->
+
+    <!-- Link to external JavaScript file — placed at end of body so HTML loads first -->
+    <script src="script.js"></script>
+  </body>
+</html>

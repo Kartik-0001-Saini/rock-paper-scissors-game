@@ -1,0 +1,385 @@
+/* =============================================
+   ROCK PAPER SCISSORS — style.css
+   Design: dark arena feel, electric-indigo
+   accent, bold geometric type.
+============================================= */
+
+/* ── 1. RESET & CSS CUSTOM PROPERTIES ──────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Color palette */
+  --bg:          #0d0d12;       /* near-black background */
+  --surface:     #16161f;       /* card / panel surface */
+  --surface-2:   #1e1e2a;       /* slightly lighter surface */
+  --border:      #2a2a3a;       /* subtle divider */
+  --accent:      #7c5cfc;       /* electric indigo */
+  --accent-glow: #7c5cfc44;     /* translucent accent for glows */
+  --accent-2:    #fc5cf5;       /* hot pink — used sparingly */
+  --text-primary:   #f0eeff;    /* bright white-ish */
+  --text-secondary: #8883a8;    /* muted purple-grey */
+  --win:   #3effa3;             /* green for wins */
+  --lose:  #ff5c7a;             /* red for losses */
+  --draw:  #ffd85c;             /* yellow for draws */
+
+  /* Typography */
+  --font-display: 'Segoe UI', system-ui, sans-serif;
+  --font-body:    system-ui, sans-serif;
+
+  /* Spacing scale */
+  --space-xs:  0.375rem;
+  --space-sm:  0.75rem;
+  --space-md:  1.25rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1); /* snappy spring */
+}
+
+/* ── 2. BASE STYLES ─────────────────────────── */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Subtle grid texture for depth */
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── 3. LAYOUT WRAPPER ──────────────────────── */
+.wrapper {
+  width: min(480px, 92vw);
+  padding: var(--space-lg) 0 var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* ── 4. HEADER ──────────────────────────────── */
+.header {
+  text-align: center;
+}
+
+/* Signature element: bold chunky display type with
+   period accents in electric indigo */
+.title {
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.subtitle {
+  margin-top: var(--space-xs);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── 5. SCOREBOARD ──────────────────────────── */
+.scoreboard {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.score-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.score-value {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text-primary);
+  /* Smooth score number transitions */
+  transition: transform 0.2s var(--ease);
+}
+
+/* Tiny bounce when score updates (toggled by JS) */
+.score-value.bump {
+  transform: scale(1.25);
+}
+
+.score-divider {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+/* ── 6. CHOICES DISPLAY ─────────────────────── */
+.choices-display {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.choice-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: border-color 0.3s ease;
+}
+
+/* Glow border applied by JS on win/lose/draw */
+.choice-card.highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px var(--accent-glow);
+}
+
+.choice-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+  /* Pop-in animation triggered by JS */
+  transition: transform 0.3s var(--ease);
+}
+
+.choice-emoji.pop {
+  transform: scale(1.2);
+}
+
+.choice-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+
+.vs-badge {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* ── 7. RESULT BANNER ───────────────────────── */
+.result-banner {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-md);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Result state variants — applied by JS */
+.result-banner.win {
+  color: var(--win);
+  border-color: var(--win);
+  background-color: #3effa310;
+}
+
+.result-banner.lose {
+  color: var(--lose);
+  border-color: var(--lose);
+  background-color: #ff5c7a10;
+}
+
+.result-banner.draw {
+  color: var(--draw);
+  border-color: var(--draw);
+  background-color: #ffd85c10;
+}
+
+/* ── 8. MOVE BUTTONS ────────────────────────── */
+.actions {
+  width: 100%;
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.move-btn {
+  flex: 1;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-sm);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  /* Smooth hover transition */
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s var(--ease),
+    box-shadow 0.2s ease;
+}
+
+.move-emoji {
+  font-size: 2rem;
+  line-height: 1;
+  /* Prevent emoji from scaling with the button push */
+  display: block;
+  transition: transform 0.2s var(--ease);
+}
+
+.move-name {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+/* Hover state */
+.move-btn:hover {
+  background-color: var(--surface-2);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.move-btn:hover .move-emoji {
+  transform: scale(1.15);
+}
+
+.move-btn:hover .move-name {
+  color: var(--accent);
+}
+
+/* Active (click) state — pushes down */
+.move-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* Focus state for keyboard navigation */
+.move-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── 9. RESET BUTTON ────────────────────────── */
+.reset-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-md);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.reset-btn:hover {
+  color: var(--lose);
+  border-color: var(--lose);
+  background-color: #ff5c7a10;
+}
+
+.reset-btn:active {
+  opacity: 0.7;
+}
+
+.reset-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── 10. FOOTER ─────────────────────────────── */
+.footer {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* ── 11. RESPONSIVE TWEAKS ──────────────────── */
+
+/* Narrow mobile (< 360px) */
+@media (max-width: 360px) {
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .score-value {
+    font-size: 2.2rem;
+  }
+
+  .move-emoji {
+    font-size: 1.6rem;
+  }
+}
+
+/* ── 12. REDUCED MOTION ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
