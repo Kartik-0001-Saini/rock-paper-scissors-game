@@ -9,13 +9,10 @@
   </head>
 
   <body>
-    <!-- =============================================
-         MAIN WRAPPER
-         Centers everything on the page
-    ============================================= -->
+    <!-- Here we are done the main wrapper work -->
     <div class="wrapper">
 
-      <!-- Page header with title and tagline -->
+      <!-- Page Header is there with title -->
       <header class="header">
         <h1 class="title">Rock<span class="accent">.</span> Paper<span class="accent">.</span> Scissors<span class="accent">.</span></h1>
         <p class="subtitle">Pick your move. Beat the machine.</p>
@@ -23,10 +20,8 @@
 
       <main>
 
-        <!-- =============================================
-             SCOREBOARD SECTION
-             Tracks Player vs Computer score
-        ============================================= -->
+        <!-- Here Scorebord section -->
+        <!-- In this we are tracking the score of our and computer -->
         <section class="scoreboard" aria-label="Scoreboard">
           <div class="score-block">
             <span class="score-label">You</span>
@@ -42,10 +37,8 @@
           </div>
         </section>
 
-        <!-- =============================================
-             CHOICE DISPLAY SECTION
-             Shows what both players picked
-        ============================================= -->
+        <!-- Here choice display is given to us -->
+        <!-- Here we are chossing which option we have to take in rock, paper or scissor -->
         <section class="choices-display" aria-label="Choices made">
           <div class="choice-card" id="player-choice-card">
             <span class="choice-emoji" id="player-emoji">❓</span>
@@ -60,18 +53,12 @@
           </div>
         </section>
 
-        <!-- =============================================
-             RESULT BANNER
-             Announces the round outcome
-        ============================================= -->
+        <!-- This is where we are showing the result section -->
         <div class="result-banner" id="result-banner" role="status" aria-live="polite">
           <span id="result-text">Choose your move to start!</span>
         </div>
 
-        <!-- =============================================
-             ACTION BUTTONS SECTION
-             The three move buttons the player clicks
-        ============================================= -->
+        <!-- Buttoon Section is there -->
         <section class="actions" aria-label="Choose your move">
           <!-- Each button has a data-move attribute read by JavaScript -->
           <button class="move-btn" data-move="Rock" aria-label="Choose Rock">
@@ -97,12 +84,11 @@
 
       </main>
 
-      <!-- Page footer -->
       <footer class="footer">
         <p>Best of luck. The CPU never sleeps. 🤖</p>
       </footer>
 
-    </div><!-- end .wrapper -->
+    </div><!-- here we end the our main part -->
 
     <!-- Link to external JavaScript file — placed at end of body so HTML loads first -->
     <script src="script.js"></script>
